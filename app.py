@@ -3,7 +3,7 @@ import streamlit as st
 st.title("🧠 ITパスポート 魔法の暗記アプリ")
 st.write("頭文字や行をタップして、知りたい用語をスマートに引き出そう！")
 
-# 用語データベース
+# 用語データベース（正式名称をカッコ書きで併記）
 terms_db = {
     "Cookie（クッキー）": {
         "kana": "か行",
@@ -14,8 +14,8 @@ terms_db = {
         "diagram": "[スマホ] ── 1回目ログイン ──> [Webサーバー]\n         <── Cookieを預かる ──┘",
         "warning": "サーバー側ではなく、自分のブラウザ（手元）に保存されます！"
     },
-    "DNS": {
-        "kana": "た行",
+    "DNS（Domain Name System）": {
+        "kana": "", # 50音側には非表示
         "initial": "D",
         "category": "ネットワーク",
         "definition": "ネット上の『電話帳』",
@@ -23,8 +23,8 @@ terms_db = {
         "diagram": "（文字のドメイン名） ── DNS ──> （数字のIPアドレス）",
         "warning": "ドメイン名（文字）からIPアドレス（数字）に変換するのがDNSの役割です。"
     },
-    "WBS": {
-        "kana": "わ行",
+    "WBS（Work Breakdown Structure）": {
+        "kana": "", 
         "initial": "W",
         "category": "マネジメント",
         "definition": "プロジェクトの『巨大なスイカの解体マップ』",
@@ -32,7 +32,7 @@ terms_db = {
         "diagram": "プロジェクト全体 ──> 大タスク ──> 中タスク ──> 細部",
         "warning": "スケジュール（ガントチャートなど）を作る「前」に、作業を階層的に分解する作業です。"
     },
-    "CPUとメモリ": {
+    "CPUとメモリ（主記憶装置）": {
         "kana": "さ行",
         "initial": "C",
         "category": "ハードウェア",
@@ -41,8 +41,8 @@ terms_db = {
         "diagram": "[CPU（頭脳・処理）] ⇄ [メモリ（一時的な机）]",
         "warning": "電源を切るとメモリの中身はすべて消えます（揮発性）！"
     },
-    "SQL": {
-        "kana": "さ行",
+    "SQL（Structured Query Language）": {
+        "kana": "", 
         "initial": "S",
         "category": "データベース",
         "definition": "データベースにお願いをするための『専用の呪文』",
@@ -61,13 +61,10 @@ terms_db = {
     }
 }
 
-# 探すモードの選択（50音順かアルファベット順か）
+# 探すモードの選択
 mode = st.radio("🔤 探す方式を選ぶ", ["50音順から探す", "アルファベット（A-Z）から探す"], horizontal=True)
 
-selected_term = None
-
 if mode == "50音順から探す":
-    # 50音の行タブを作成
     kana_tabs = st.tabs(["あ行", "か行", "さ行", "た行", "な行", "は行", "ま行", "や行", "ら行", "わ行"])
     kana_list = ["あ行", "か行", "さ行", "た行", "な行", "は行", "ま行", "や行", "ら行", "わ行"]
     
@@ -84,9 +81,6 @@ if mode == "50音順から探す":
                 st.caption("（この行の登録用語はまだありません）")
 
 else:
-    # アルファベットのタブを作成
-    initials = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-    # 登録されている頭文字だけに絞るか、すべて並べるか（ここではスッキリ見せるため主要なものをタブに）
     active_initials = ["C", "D", "P", "S", "W"]
     alpha_tabs = st.tabs(active_initials)
     
@@ -102,7 +96,7 @@ else:
             else:
                 st.caption("（登録用語はまだありません）")
 
-# タップされて保持している用語があれば詳細を表示
+# 選択された用語の詳細表示
 if "active_term" in st.session_state:
     term = st.session_state["active_term"]
     if term in terms_db:
