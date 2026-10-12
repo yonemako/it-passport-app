@@ -1,4 +1,4 @@
- import streamlit as st
+import streamlit as st
 
 st.title("🧠 ITパスポート 魔法の暗記アプリ")
 st.write("難しい用語を、日常の例えと図解で一発暗記！")
